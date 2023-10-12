@@ -55,35 +55,36 @@ def crossing(list_characters):
     return offspring_list
 
 
-def mutation(character):
+def mutation(character, chance_mutation):
     mutated_character = ""
     for i in range(len(character)):
-        separate = random.randint(0, 20)
-        if separate == 1 and character[i] == "0":
+        mutation_check = random.randint(0, 1 / (chance_mutation / 100))
+        if mutation_check == 1 and character[i] == "0":
             mutated_character += "1"
-        elif separate == 1 and character[i] == "1":
+        elif mutation_check == 1 and character[i] == "1":
             mutated_character += "0"
         else:
             mutated_character += character[i]
     return character
 
 
-def mutation_population(list_characters):
+def mutation_population(list_characters, chance_mutation):
     mutated_population = []
     for elem in list_characters:
-        m = mutation(elem)
+        m = mutation(elem, chance_mutation)
         mutated_population.append(m)
     return mutated_population
 
 
-def generation(current_population):
+def generation(current_population, chance_mutation):
     population = current_population
     parent_population = crossing(population)
-    mutated_population = mutation_population(parent_population)
+    mutated_population = mutation_population(parent_population, chance_mutation)
     return mutated_population
 
 
-def generate_population(number_of_generations, len_character, len_population, the_sought_character=""):
+def generate_population(number_of_generations, len_character, len_population, the_sought_character="",
+                        chance_mutation=5):
     find_best_character = False
     if the_sought_character == "":
         the_sought_character = "1" * len_character
@@ -92,7 +93,7 @@ def generate_population(number_of_generations, len_character, len_population, th
         find_best_character = True
     while number_of_generations > 0 or find_best_character:
         first_population = generate_list(len_character, len_population)
-        current_population = generation(first_population)
+        current_population = generation(first_population, chance_mutation)
 
         print(current_population)
         print(success_rate(current_population))
@@ -108,4 +109,4 @@ def generate_population(number_of_generations, len_character, len_population, th
 
 
 if __name__ == '__main__':
-    a = generate_population(0, 6, 5, "000000")
+    a = generate_population(0, 6, 5, "111111")
