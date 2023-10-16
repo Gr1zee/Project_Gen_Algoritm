@@ -108,5 +108,6 @@ def generate_population(number_of_generations, len_character, len_population, th
         generation_counter += 1
 
 
+
 if __name__ == '__main__':
     a = generate_population(0, 6, 5, "111111")
