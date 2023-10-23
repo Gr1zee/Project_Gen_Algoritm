@@ -58,7 +58,7 @@ def crossing(list_characters):
 def mutation(character, chance_mutation):
     mutated_character = ""
     for i in range(len(character)):
-        mutation_check = random.randint(0, 1 / (chance_mutation / 100))
+        mutation_check = random.randint(0, 1 // (chance_mutation / 100))
         if mutation_check == 1 and character[i] == "0":
             mutated_character += "1"
         elif mutation_check == 1 and character[i] == "1":
@@ -95,10 +95,6 @@ def generate_population(number_of_generations, len_character, len_population, th
         first_population = generate_list(len_character, len_population)
         current_population = generation(first_population, chance_mutation)
 
-        print(current_population)
-        print(success_rate(current_population))
-        print(best_character(current_population))
-
         if the_sought_character in current_population and find_best_character:
             print(best_character(current_population))
             print(generation_counter)
@@ -109,4 +105,4 @@ def generate_population(number_of_generations, len_character, len_population, th
 
 
 if __name__ == '__main__':
-    a = generate_population(0, 6, 5, "111111")
+    a = generate_population(0, 15, 20, "", 3)
